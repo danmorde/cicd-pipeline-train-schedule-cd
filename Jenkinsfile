@@ -8,11 +8,11 @@ pipeline {
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
-                stage('DeployToStaging') {
+        stage('DeployToStaging') {
             when {
                 branch 'master'
             }
-         steps {
+            steps {
                 withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                     sshPublisher(
                         failOnError: true,
@@ -38,7 +38,6 @@ pipeline {
                 }
             }
         }
-        
         stage('DeployToProduction') {
             when {
                 branch 'master'
@@ -72,8 +71,4 @@ pipeline {
             }
         }
     }
-}
- 
-   }
-    
 }
